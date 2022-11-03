@@ -34,7 +34,7 @@ public class SchoolTrackerController {
     private DynamoDBEnhanced dde;
 
     @Autowired
-    private PublishTextSMS msg;
+    private SMSNotification msg;
 
     /**
      Annotation for mapping HTTP GET requests onto
@@ -43,8 +43,8 @@ public class SchoolTrackerController {
      **/
     @GetMapping("/")
     public String studentTrackForm(Model model) {
-        model.addAttribute("greeting", new Student());
-        return "greeting";
+        model.addAttribute("student", new Student());
+        return "student";
     }
 
     /**
@@ -56,11 +56,15 @@ public class SchoolTrackerController {
     @PostMapping("/schooltracker")
     public String studentSubmit(@ModelAttribute Student student) {
 
-        // Stores data in an Amazon DynamoDB table.
-        dde.injectDynamoItem(student);
+        //Stores data in an Amazon DynamoDB table.
+        dde.insertDynamoItem(student);
 
-        // Sends a text notification.
-        msg.sendMessage(student.getStudentID());
+        //Sends a notification to the number specified about
+        //newly added student.
+        msg.sendMessage(student.getStudentName(),
+                student.getStudentSurname(),
+                student.getStudentID(),
+                student.getStudentYear());
 
         return "result";
     }

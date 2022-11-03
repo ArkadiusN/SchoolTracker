@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>School Register</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+</head>
+<body>
+<div class="container">
+    <h1>School Register</h1>
+    <p>Submit new student record.</p>
+    <form action="#" th:action="@{/schooltracker}" th:object="${student}" method="post">
+        <div class="form-group">
+            <p>Student ID: <input type="text"  class="form-control" th:field="*{studentID}" /></p>
+        </div>
+
+        <div class="form-group">
+            <p>Student's name: <input type="text" class="form-control" th:field="*{studentName}" /></p>
+        </div>
+
+        <div class="form-group">
+            <p>Student's surname: <input type="text" class="form-control" th:field="*{studentSurname}" /></p>
+        </div>
+
+        <div class="form-group">
+            <p>Student's year: <input type="text" class="form-control" th:field="*{studentYear}"/></p>
+        </div>
+
+        <div class="form-group">
+            <p>Is student present?: <input type="radio" class="form-control" th:field="*{isPresent}"/></p>
+        </div>
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</div>
+</body>
+</html>
