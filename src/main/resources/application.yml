@@ -1,0 +1,14 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+          clientId: 2a3pom18ad4mlsfqtamhf1a25b
+          clientSecret: <enter your client secret value>
+          scope: openid, email
+          redirectUriTemplate: http://localhost:8080/login/oauth2/code/cognito <your call back URL>
+          clientName: spring-boot <The client app value you defined>
+    provider:
+      cognito:
+        issuerUri: https://cognito-idp.<AWS Region>.amazonaws.com/<pool id value>

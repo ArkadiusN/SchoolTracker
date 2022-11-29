@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
  It’s used to mark a class as a web request handler!!!
  **/
 @Controller
-public class SchoolTrackerController {
+public class StudentController {
     /**
      Autowired
      <br>
-     Since SchoolTrackerController needs an instance of
+     Since StudentController needs an instance of
      <br>
      DynamoDBEnhanced, so it will search for a type "DynamoDBEnhanced"
      <br>
@@ -53,7 +53,7 @@ public class SchoolTrackerController {
      specific handler methods.
      @see "https://www.baeldung.com/spring-mvc-and-the-modelattribute-annotation"
      **/
-    @PostMapping("/schooltracker")
+    @PostMapping("/student")
     public String studentSubmit(@ModelAttribute Student student) {
 
         //Stores data in an Amazon DynamoDB table.

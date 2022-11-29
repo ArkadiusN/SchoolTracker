@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version openjdk-17 java version "17.0.1" / spring-framework version "2.6.1"
  */
 @SpringBootApplication
-public class SchoolTrackerApp {
+public class StudentApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SchoolTrackerApp.class, args);
+        SpringApplication.run(StudentApplication.class, args);
     }
 }

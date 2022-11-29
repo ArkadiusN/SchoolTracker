@@ -9,7 +9,7 @@
 <div class="container">
     <h1>School Register</h1>
     <p>Submit new student record.</p>
-    <form action="#" th:action="@{/schooltracker}" th:object="${student}" method="post">
+    <form action="#" th:action="@{/student}" th:object="${student}" method="post">
         <div class="form-group">
             <p>Student ID: <input type="text"  class="form-control" th:field="*{studentID}" /></p>
         </div>
@@ -26,9 +26,9 @@
             <p>Student's year: <input type="text" class="form-control" th:field="*{studentYear}"/></p>
         </div>
 
-        <div class="form-group">
-            <p>Is student present?: <input type="radio" class="form-control" th:field="*{isPresent}"/></p>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <p>Is student present?: <input type="radio" class="form-control" th:field="*{isPresent}"/></p>-->
+<!--        </div>-->
 
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
