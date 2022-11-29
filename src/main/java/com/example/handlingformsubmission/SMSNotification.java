@@ -28,7 +28,10 @@ public class SMSNotification {
                 studentYear);
         //TODO Figure out the correct format of the phone number as a String
         // for the purpose of testing/creating the example.
-        String phoneNumber = " ";
+        //Based on the documentation
+        //the number to be used needs to
+        //adhere to standard E.164 to work.
+        String phoneNumber = "";
 
         try {
             PublishRequest request = PublishRequest.builder()
@@ -38,6 +41,7 @@ public class SMSNotification {
 
             //Send the message via Amazon SNS (Simple Notification Service).
             snsClient.publish(request);
+
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
