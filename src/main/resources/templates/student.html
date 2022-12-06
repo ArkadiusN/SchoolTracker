@@ -1,37 +1,51 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>School Register</title>
+    <title>Getting Started: Spring Boot and the Enhanced DynamoDB Client</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
 </head>
 <body>
 <div class="container">
-    <h1>School Register</h1>
-    <p>Submit new student record.</p>
-    <form action="#" th:action="@{/student}" th:object="${student}" method="post">
-        <div class="form-group">
-            <p>Student ID: <input type="text"  class="form-control" th:field="*{studentID}" /></p>
+
+    <div sec:authorize="isAnonymous()">
+        <p>You must log in with Amazon Cognito to access this AWS Web Application.</p>
+        <a class="btn btn-primary" th:href="@{/oauth2/authorization/cognito}" role="button">
+            Log in using <b>Amazon Cognito</b>
+        </a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <h1>School Register</h1>
+        <p>Hello user <strong th:text="${#authentication.getStudentName()}"></strong></p>
+        <p>You can submit data to a DynamoDB table by using the Enhanced Client. A mobile notification is sent alerting a user a new submission occurred.</p>
+        <form action="#" th:action="@{/student}" th:object="${student}" method="post">
+            <div class="form-group">
+                <p>Student ID: <input type="text" class="form-control" th:field="*{studentID}"/></p>
+            </div>
+
+            <div class="form-group">
+                <p>Student's name: <input type="text" class="form-control" th:field="*{studentName}"/></p>
+            </div>
+
+            <div class="form-group">
+                <p>Student's surname: <input type="text" class="form-control" th:field="*{studentSurname}"/></p>
+            </div>
+
+            <div class="form-group">
+                <p>Student's year: <input type="text" class="form-control" th:field="*{studentYear}"/></p>
+            </div>
+
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+        <div sec:authorize="isAuthenticated()">
+            <form method="post" th:action="@{/logout}">
+                <input type="submit" class="btn btn-danger" value="Logout"/>
+            </form>
         </div>
-
-        <div class="form-group">
-            <p>Student's name: <input type="text" class="form-control" th:field="*{studentName}" /></p>
-        </div>
-
-        <div class="form-group">
-            <p>Student's surname: <input type="text" class="form-control" th:field="*{studentSurname}" /></p>
-        </div>
-
-        <div class="form-group">
-            <p>Student's year: <input type="text" class="form-control" th:field="*{studentYear}"/></p>
-        </div>
-
-<!--        <div class="form-group">-->
-<!--            <p>Is student present?: <input type="radio" class="form-control" th:field="*{isPresent}"/></p>-->
-<!--        </div>-->
-
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+    </div>
 </div>
 </body>
 </html>
