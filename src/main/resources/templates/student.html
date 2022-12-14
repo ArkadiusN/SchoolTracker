@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>School Register</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -23,14 +23,15 @@
         </div>
 
         <div class="form-group">
-            <p>Student's year: <input type="text" class="form-control" th:field="*{studentYear}"/></p>
+            <p>Student's year: <input type="text" class="form-control" th:field="*{studentYear}" /></p>
         </div>
 
-<!--        <div class="form-group">-->
-<!--            <p>Is student present?: <input type="radio" class="form-control" th:field="*{isPresent}"/></p>-->
-<!--        </div>-->
+        <div class="form-group">
+            <p>Present:<input type="checkbox" class="form-control" th:field="*{isPresent}" /></p>
+        </div>
 
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
     </form>
 </div>
 </body>

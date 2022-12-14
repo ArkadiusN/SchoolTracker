@@ -64,8 +64,8 @@ public class StudentController {
         msg.sendMessage(student.getStudentName(),
                 student.getStudentSurname(),
                 student.getStudentID(),
-                student.getStudentYear());
-
+                student.getStudentYear(),
+                student.isPresent());
         return "result";
     }
 }

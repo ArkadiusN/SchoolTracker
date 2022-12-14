@@ -1,37 +1,27 @@
 package com.example.handlingformsubmission;
 
-
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.SnsException;
 import org.springframework.stereotype.Component;
 
 @Component("SMSNotification")
-public class SMSNotification {
+public class SMSNotification extends ClientBuilder{
 
-    public void sendMessage(String studentName, String studentSurname, String studentID, String studentYear){
-        Region region = Region.US_EAST_1;
-        SnsClient snsClient = SnsClient.builder()
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
-
+    public void sendMessage(String studentName, String studentSurname, String studentID, String studentYear, boolean isPresent){
         //Message to be sent to the person taking care of the
         //students register.
         String message = String
-                .format("Student %s %s with the ID %s from year %s was added to DynamoDB register.",
-                studentName,
-                studentSurname,
-                studentID,
-                studentYear);
-        //TODO Figure out the correct format of the phone number as a String
-        // for the purpose of testing/creating the example.
-        //Based on the documentation
-        //the number to be used needs to
+                .format("Student: %s %s with the ID: %s \nfrom Year: %s \nwas added to register \nand the Status is: %s",
+                        studentName,
+                        studentSurname,
+                        studentID,
+                        studentYear,
+                        isPresent);
+
+        //Based on the documentation the number to be used needs to
         //adhere to standard E.164 to work.
-        String phoneNumber = "";
+        String phoneNumber = "+44 771-513-1488";
 
         try {
             PublishRequest request = PublishRequest.builder()
@@ -40,6 +30,7 @@ public class SMSNotification {
                     .build();
 
             //Send the message via Amazon SNS (Simple Notification Service).
+            SnsClient snsClient = super.buildClientSNS();
             snsClient.publish(request);
 
         } catch (SnsException e) {

@@ -17,7 +17,7 @@ public class StudentItems {
     private String studentSurname;
     private String studentID;
     private String studentYear;
-//    private boolean isPresent;
+    private boolean isPresent;
 
     //Constructor.
     public StudentItems()
@@ -29,7 +29,7 @@ public class StudentItems {
     public String getStudentSurname() {return this.studentSurname;}
     public String getStudentID() {return this.studentID;}
     public String getStudentYear() {return this.studentYear;}
-//    public boolean isPresent() {return this.isPresent;}
+    public boolean isPresent() {return isPresent;}
 
     //Setters.
     public void setStudentName(String studentName) {this.studentName = studentName;}
@@ -37,7 +37,6 @@ public class StudentItems {
 
     @DynamoDbPartitionKey
     public void setStudentID(String studentID) {this.studentID = studentID;}
-
     public void setStudentYear(String studentYear) {this.studentYear = studentYear;}
-//    public void setPresent(boolean present) {this.isPresent = present;}
+    public void setPresent(boolean isPresent) {this.isPresent = isPresent;}
 }
