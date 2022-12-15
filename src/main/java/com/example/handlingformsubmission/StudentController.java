@@ -1,5 +1,6 @@
 package com.example.handlingformsubmission;
 
+import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 // exposes it to a web view.
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.thymeleaf.exceptions.TemplateProcessingException;
 
 /**
  Controller
@@ -61,11 +63,21 @@ public class StudentController {
 
         //Sends a notification to the number specified about
         //newly added student.
-        msg.sendMessage(student.getStudentName(),
-                student.getStudentSurname(),
-                student.getStudentID(),
-                student.getStudentYear(),
-                student.isPresent());
+        try {
+            msg.sendMessage(student.getStudentName(),
+                    student.getStudentSurname(),
+                    student.getStudentID(),
+                    student.getStudentYear());
+        }catch (NotReadablePropertyException err1){
+            System.err.println("One or more properties is not readable or has an invalid getter method.");
+            System.out.println("The error is: " + err1);
+            System.exit(500);
+
+        }catch (TemplateProcessingException err2){
+            System.err.println("The org.thymeleaf engine has found error in the template's syntax.");
+            System.out.println("The error is: " + err2);
+            System.exit(500);
+        }
         return "result";
     }
 }

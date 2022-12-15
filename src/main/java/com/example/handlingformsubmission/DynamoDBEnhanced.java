@@ -16,19 +16,30 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
     - Inject them wherever needed.
  */
 @Component("DynamoDBEnhanced")
-public class DynamoDBEnhanced extends ClientBuilder{
+public class DynamoDBEnhanced extends ClientBuilder<DynamoDbClient> {
+
+    @Override
+    protected DynamoDbClient buildClient() {
+        return DynamoDbClient.builder()
+                .region(region)
+                .credentialsProvider(evcp)
+                .build();
+    }
 
     /**
      * @param student a record with the details to be saved into DynamoDB.
      */
     public void insertDynamoItem(Student student){
-        DynamoDbClient ddb = super.buildClientDynDB();
+        DynamoDbClient ddb = buildClient();
 
         try {
             //Suggested way to forward the execution
             //of database operations on DynamoDB using
             //applications classes (from AWS SDK 2.0).
-            DynamoDbEnhancedClient enhancedClient = super.buildEnhancedClientDynDB(ddb);
+            DynamoDBEnhanced ddbObject = new DynamoDBEnhanced();
+            //TODO Check whether a lambda expression can be used for buildEnhancedDynDb();
+            DynamoDbEnhancedClient enhancedClient = ddbObject.buildEnhancedClientDynDB(ddb);
+
 
             DynamoDbTable<StudentItems> table = enhancedClient.table("Student", TableSchema.fromBean(StudentItems.class));
             StudentItems studentItems = new StudentItems();
@@ -39,7 +50,6 @@ public class DynamoDBEnhanced extends ClientBuilder{
             studentItems.setStudentName(student.getStudentName());
             studentItems.setStudentSurname(student.getStudentSurname());
             studentItems.setStudentYear(student.getStudentYear());
-            studentItems.setPresent(student.isPresent());
             studentItems.setStudentID(student.getStudentID());
 
             PutItemEnhancedRequest enhancedRequest = PutItemEnhancedRequest.builder(StudentItems.class)
