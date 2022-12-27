@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 // exposes it to a web view.
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 
 /**
@@ -49,13 +51,25 @@ public class StudentController {
         return "student";
     }
 
+    @GetMapping("/student")
+    public String getStudent(Model model) {
+        model.addAttribute("student", new Student());
+        return "student";
+    }
+
+    @GetMapping("/attend")
+    public String getAttendance(Model model) {
+        model.addAttribute("student", new Student());
+        return "attend";
+    }
+
     /**
      Annotation for mapping HTTP POST requests onto
      <br>
      specific handler methods.
      @see "https://www.baeldung.com/spring-mvc-and-the-modelattribute-annotation"
      **/
-    @PostMapping("/student")
+    @PostMapping("/student_post")
     public String studentSubmit(@ModelAttribute Student student) {
 
         //Stores data in an Amazon DynamoDB table.
@@ -78,6 +92,15 @@ public class StudentController {
             System.out.println("The error is: " + err2);
             System.exit(500);
         }
+        return "result";
+    }
+
+    @PostMapping("/attend_post")
+    public String attendSubmit(@ModelAttribute Student student) {
+
+        //Stores data in an Amazon DynamoDB table.
+        dde.insertDynamoItem((student));
+
         return "result";
     }
 }
