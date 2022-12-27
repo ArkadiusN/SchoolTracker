@@ -57,6 +57,12 @@ public class StudentController {
         return "attend";
     }
 
+    @GetMapping("/query")
+    public String getQuery(Model model) {
+        model.addAttribute("query", new Query());
+        return "query";
+    }
+
     /**
      Annotation for mapping HTTP POST requests onto
      <br>

@@ -10,26 +10,7 @@
   <h1>Student Attendance</h1>
   <p>Query Student Attendance records.</p>
 
-  <form action="#" th:action="@{/attend}" th:object="${student}" method="post">
-
-    <div class="form-group">
-      <p>Student ID: <input type="text"  class="form-control" th:field="*{studentID}" /></p>
-    </div>
-
-    <div class="form-group">
-      <p>Module ID: <input type="text"  class="form-control" th:field="*{moduleID}" /></p>
-    </div>
-
-    <div class="form-group">
-      <p>Lecture Date: <input type="date"  class="form-control" th:field="*{lectureDate}" /></p>
-    </div>
-
-    <div>
-      <label>Present:</label>
-      <input type="checkbox" th:field="*{attended}" />
-    </div>
-
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+  <form action="#" th:action="@{/query}" th:object="${query}" method="post">
 
     <nav>
       <ul>
