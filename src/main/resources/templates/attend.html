@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>School Register</h1>
+    <h1>Attendance Record</h1>
     <p>Submit Student Attendance record.</p>
 
     <form action="#" th:action="@{/attend}" th:object="${student}" method="post">
@@ -34,6 +34,7 @@
         <nav>
             <ul>
                 <li><a href="student.html" th:href="@{/}">Add Student</a></li>
+                <li><a href="query.html" th:href="@{/query}">Attendance Querying</a></li>
             </ul>
         </nav>
 

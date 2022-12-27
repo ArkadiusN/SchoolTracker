@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Students" />
         <module name="schooltracker" />
+        <module name="StudentCognito" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="StudentCognito" options="-parameters" />
       <module name="Students" options="-parameters" />
       <module name="schooltracker" options="-parameters" />
     </option>

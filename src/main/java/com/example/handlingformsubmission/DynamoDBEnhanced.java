@@ -1,12 +1,17 @@
 package com.example.handlingformsubmission;
 
+import org.springframework.stereotype.Component;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import org.springframework.stereotype.Component;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
+import software.amazon.awssdk.services.dynamodb.model.ScanResponse;
+
+import java.util.Map;
 
 /*
   @Component is an annotation that allows Spring to automatically detect our custom beans.
@@ -63,6 +68,25 @@ public class DynamoDBEnhanced extends ClientBuilder<DynamoDbClient> {
             table.putItem(enhancedRequest);
 
         }catch (DynamoDbException err){
+            System.out.println(err.getMessage());
+            System.exit(1);
+        }
+    }
+
+    public void queryDynamoTable(String moduleID) {
+        DynamoDbClient ddb = buildClient();
+
+        try {
+            ScanRequest scanRequest = ScanRequest
+                    .builder()
+                    .tableName("lectureDate-studentID-index")
+                    .filterExpression(String.format("moduleID = %s", AttributeValue.builder().s(moduleID).build()))
+                    .projectionExpression("lectureDate, studentID, attended")
+                    .build();
+
+            ScanResponse result = ddb.scan(scanRequest);
+
+        } catch (DynamoDbException err) {
             System.out.println(err.getMessage());
             System.exit(1);
         }
