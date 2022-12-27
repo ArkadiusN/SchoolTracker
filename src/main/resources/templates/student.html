@@ -10,7 +10,7 @@
     <h1>School Register</h1>
     <p>Submit new student record.</p>
 
-    <form action="#" th:action="@{/student_post}" th:object="${student}" method="post">
+    <form action="#" th:action="@{/student}" th:object="${student}" method="post">
         <div class="form-group">
             <p>Student ID: <input type="text"  class="form-control" th:field="*{studentID}" /></p>
         </div>
@@ -31,7 +31,7 @@
 
         <nav>
             <ul>
-                <li><a href="attend.html" th:href="@{/attend}">Atendance Recording</a></li>
+                <li><a href="attend.html" th:href="@{/attend}">Attendance Recording</a></li>
             </ul>
         </nav>
 

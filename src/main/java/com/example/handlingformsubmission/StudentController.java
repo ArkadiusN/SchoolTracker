@@ -51,12 +51,6 @@ public class StudentController {
         return "student";
     }
 
-    @GetMapping("/student")
-    public String getStudent(Model model) {
-        model.addAttribute("student", new Student());
-        return "student";
-    }
-
     @GetMapping("/attend")
     public String getAttendance(Model model) {
         model.addAttribute("student", new Student());
@@ -69,7 +63,7 @@ public class StudentController {
      specific handler methods.
      @see "https://www.baeldung.com/spring-mvc-and-the-modelattribute-annotation"
      **/
-    @PostMapping("/student_post")
+    @PostMapping("/student")
     public String studentSubmit(@ModelAttribute Student student) {
 
         //Stores data in an Amazon DynamoDB table.
@@ -95,7 +89,7 @@ public class StudentController {
         return "result";
     }
 
-    @PostMapping("/attend_post")
+    @PostMapping("/attend")
     public String attendSubmit(@ModelAttribute Student student) {
 
         //Stores data in an Amazon DynamoDB table.

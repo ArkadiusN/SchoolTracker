@@ -11,8 +11,8 @@ public class Student {
     private String studentSurname;
     private String studentID;
     private String studentYear;
-    private String moduleID = "RECORD";
-    private String lectureDate = "";
+    private String moduleID = "";
+    private String lectureDate = "RECORD";
     private boolean attended = false;
 
     ///Getters.
