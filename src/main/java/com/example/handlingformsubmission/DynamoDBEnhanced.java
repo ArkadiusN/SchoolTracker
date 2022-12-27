@@ -73,18 +73,36 @@ public class DynamoDBEnhanced extends ClientBuilder<DynamoDbClient> {
         }
     }
 
-    public void queryDynamoTable(String moduleID) {
+    public void queryDynamoTable(Query query) {
         DynamoDbClient ddb = buildClient();
 
         try {
             ScanRequest scanRequest = ScanRequest
                     .builder()
                     .tableName("lectureDate-studentID-index")
-                    .filterExpression(String.format("moduleID = %s", AttributeValue.builder().s(moduleID).build()))
-                    .projectionExpression("lectureDate, studentID, attended")
+                    .projectionExpression("moduleID, lectureDate, studentID, attended")
                     .build();
 
-            ScanResponse result = ddb.scan(scanRequest);
+            ScanResponse response = ddb.scan(scanRequest);
+
+            int length = response.count();
+
+            Object[][] data = new Object[length][4];
+
+            int index = 0;
+
+            for (Map<String, AttributeValue> item : response.items()) {
+                data[0][index] = item.get("moduleID");
+                data[1][index] = item.get("lectureDate");
+                data[2][index] = item.get("studentID");
+                data[3][index] = item.get("attended");
+                index++;
+            }
+
+            String[] columnNames = {"Module ID", "Lecture Date", "Student ID", "Present"};
+
+            query.setData(data);
+            query.setColumnNames(columnNames);
 
         } catch (DynamoDbException err) {
             System.out.println(err.getMessage());

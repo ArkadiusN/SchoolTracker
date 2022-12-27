@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.exceptions.TemplateProcessingException;
+import software.amazon.awssdk.services.dynamodb.model.ScanResponse;
 
 /**
  Controller
@@ -59,6 +60,8 @@ public class StudentController {
 
     @GetMapping("/query")
     public String getQuery(Model model) {
+        Query query = new Query();
+        dde.queryDynamoTable(query);
         model.addAttribute("query", new Query());
         return "query";
     }

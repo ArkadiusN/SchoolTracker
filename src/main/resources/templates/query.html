@@ -10,6 +10,21 @@
   <h1>Student Attendance</h1>
   <p>Query Student Attendance records.</p>
 
+  <table border="1">
+    <tr>
+      <td>Lecture Date</td>
+      <td>Module ID</td>
+      <td>Student ID</td>
+      <td>Present</td>
+    </tr>
+    <tr th:each="data : ${query.getData()}">
+      <td th:text="${data[1]}">Lecture Date</td>
+      <td th:text="${data[0]}">Module ID</td>
+      <td th:text="${data[2]}">Student ID</td>
+      <td th:text="${data[3]}">Present</td>
+    </tr>
+  </table>
+
   <form action="#" th:action="@{/query}" th:object="${query}" method="post">
 
     <nav>
