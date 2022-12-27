@@ -8,7 +8,7 @@ import software.amazon.awssdk.services.sns.SnsClient;
 
 public class ClientBuilder {
     //Variables for DynamoDB and SNS service.
-    final static protected Region region = Region.EU_WEST_2;
+    final static protected Region region = Region.US_EAST_1;
     final protected EnvironmentVariableCredentialsProvider evcp = EnvironmentVariableCredentialsProvider.create();
 
     //Clients used to build the possibilities of sending data
