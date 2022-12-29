@@ -62,7 +62,7 @@ public class StudentController {
     public String getQuery(Model model) {
         Query query = new Query();
         dde.queryDynamoTable(query);
-        model.addAttribute("query", new Query());
+        model.addAttribute("query", query);
         return "query";
     }
 
