@@ -11,8 +11,6 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 import software.amazon.awssdk.services.dynamodb.model.ScanResponse;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /*
