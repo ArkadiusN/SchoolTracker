@@ -4,11 +4,11 @@ spring:
       client:
         registration:
           cognito:
-            clientId: 47earg9gbo9456cai3p6m1t4i3
-            clientSecret: bbvgpirvegmnr4gp4sunmpgipvumemmon621gvmq6s7gj2krttk
+            clientId: 6cfgl168lfnvmt841c9opve6m4
+            clientSecret: 1djrqq5jo2g5nehd78t9de0e2dk31oo2pbroosbjmnbssveps3h5
             scope: openid, email, aws.cognito.signin.user.admin, phone
-            redirectUriTemplate: https://school-tracker.co.uk/login/oauth2/code/cognito
+            redirectUriTemplate: https://school-tracker-pg12.co.uk/oauth2/idpresponse
             clientName: spring-boot
         provider:
           cognito:
-            issuerUri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_BnR5P7BJ8
+            issuerUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_0WQ2XKQgq
