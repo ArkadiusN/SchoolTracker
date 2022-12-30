@@ -1,0 +1,14 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            clientId: 47earg9gbo9456cai3p6m1t4i3
+            clientSecret: bbvgpirvegmnr4gp4sunmpgipvumemmon621gvmq6s7gj2krttk
+            scope: openid, email, aws.cognito.signin.user.admin, phone
+            redirectUriTemplate: https://school-tracker.co.uk/login/oauth2/code/cognito
+            clientName: spring-boot
+        provider:
+          cognito:
+            issuerUri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_BnR5P7BJ8

@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Form Submitted</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <h1>Result is:</h1>
-<p th:text="'id: ' + ${student.studentID}"/>
-<p th:text="'content: ' + ${student.studentName}"/>
+<p th:text="'id: ' + ${student.studentID}"></p>
+<p th:text="'content: ' + ${student.studentName}"></p>
 <a href="/">Submit another message</a>
 </body>
 </html>

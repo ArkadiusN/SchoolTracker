@@ -6,15 +6,7 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 import org.springframework.stereotype.Component;
 
 @Component("SMSNotification")
-public class SMSNotification extends ClientBuilder<SnsClient> {
-
-    @Override
-    protected SnsClient buildClient() {
-        return SnsClient.builder()
-                .region(region)
-                .credentialsProvider(evcp)
-                .build();
-    }
+public class SMSNotification extends ClientBuilder{
 
     public void sendMessage(String studentName, String studentSurname, String studentID, String studentYear){
         //Message to be sent to the person taking care of the
@@ -28,7 +20,7 @@ public class SMSNotification extends ClientBuilder<SnsClient> {
 
         //Based on the documentation the number to be used needs to
         //adhere to standard E.164 to work.
-        String phoneNumber = " ";
+        String phoneNumber = "+447715131488";
 
         try {
             PublishRequest request = PublishRequest.builder()
@@ -37,8 +29,7 @@ public class SMSNotification extends ClientBuilder<SnsClient> {
                     .build();
 
             //Send the message via Amazon SNS (Simple Notification Service).
-            SnsClient snsClient = buildClient();
-
+            SnsClient snsClient = super.buildClientSNS();
             snsClient.publish(request);
 
         } catch (SnsException e) {
