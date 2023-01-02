@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <title>Query Attendance</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+</head>
+<body>
+<div class="container">
+  <h1>Student Attendance</h1>
+  <p>Query Student Attendance records.</p>
+
+  <table>
+    <tr th:each="data : ${query.getData()}">
+      <td th:each="row : ${data}">
+        <div th:text="${row}">Lecture Date</div>
+      </td>
+    </tr>
+  </table>
+
+  <form action="#" th:action="@{/query}" th:object="${query}" method="post">
+
+    <nav>
+      <ul>
+        <li><a href="student.html" th:href="@{/}">Add Student</a></li>
+        <li><a href="attend.html" th:href="@{/attend}">Attendance Recording</a></li>
+      </ul>
+    </nav>
+
+  </form>
+</div>
+</body>
+</html>

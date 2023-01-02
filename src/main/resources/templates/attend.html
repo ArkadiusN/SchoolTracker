@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Record Attendance</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+</head>
+<body>
+<div class="container">
+    <h1>Attendance Record</h1>
+    <p>Submit Student Attendance record.</p>
+
+    <form action="#" th:action="@{/attend}" th:object="${student}" method="post">
+
+        <div class="form-group">
+            <p>Student ID: <input type="text"  class="form-control" th:field="*{studentID}" /></p>
+        </div>
+
+        <div class="form-group">
+            <p>Module ID: <input type="text"  class="form-control" th:field="*{moduleID}" /></p>
+        </div>
+
+        <div class="form-group">
+            <p>Lecture Date: <input type="date"  class="form-control" th:field="*{lectureDate}" /></p>
+        </div>
+
+        <div>
+            <label>Present:</label>
+            <input type="checkbox" th:field="*{attended}" />
+        </div>
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+        <nav>
+            <ul>
+                <li><a href="student.html" th:href="@{/}">Add Student</a></li>
+                <li><a href="query.html" th:href="@{/query}">Attendance Querying</a></li>
+            </ul>
+        </nav>
+
+    </form>
+</div>
+</body>
+</html>

@@ -1,18 +1,19 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Spring Boot and the Enhanced DynamoDB Client</title>
+    <title>School Register</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
 </head>
 <body>
 <div class="container">
-        <h1>School Register</h1>
-        <p>You can submit data to a DynamoDB table by using the Enhanced Client. A mobile notification is sent alerting a user a new submission occurred.</p>
-        <form action="#" th:action="@{/student}" th:object="${student}" method="post">
-            <div class="form-group">
-                <p>Student ID: <input type="text"  class="form-control" th:field="*{studentID}" /></p>
-            </div>
+    <h1>School Register</h1>
+    <p>Submit new student record.</p>
+
+    <form action="#" th:action="@{/student}" th:object="${student}" method="post">
+        <div class="form-group">
+            <p>Student ID: <input type="text"  class="form-control" th:field="*{studentID}" /></p>
+        </div>
 
             <div class="form-group">
                 <p>Student's name: <input type="text" class="form-control" th:field="*{studentName}" /></p>
@@ -22,12 +23,20 @@
                 <p>Student's surname: <input type="text" class="form-control" th:field="*{studentSurname}" /></p>
             </div>
 
-            <div class="form-group">
-                <p>Student's year: <input type="text" class="form-control" th:field="*{studentYear}" /></p>
-            </div>
+        <div class="form-group">
+            <p>Student's year: <input type="text" class="form-control" th:field="*{studentYear}" /></p>
+        </div>
 
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+        <nav>
+            <ul>
+                <li><a href="attend.html" th:href="@{/attend}">Attendance Recording</a></li>
+                <li><a href="query.html" th:href="@{/query}">Attendance Querying</a></li>
+            </ul>
+        </nav>
+
+    </form>
 </div>
 </body>
 </html>

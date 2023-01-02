@@ -1,12 +1,21 @@
 package com.example.handlingformsubmission;
 
+import org.springframework.stereotype.Component;
+import org.w3c.dom.Attr;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import org.springframework.stereotype.Component;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
+import software.amazon.awssdk.services.dynamodb.model.ScanResponse;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /*
   @Component is an annotation that allows Spring to automatically detect our custom beans.
@@ -39,6 +48,9 @@ public class DynamoDBEnhanced extends ClientBuilder{
             studentItems.setStudentSurname(student.getStudentSurname());
             studentItems.setStudentYear(student.getStudentYear());
             studentItems.setStudentID(student.getStudentID());
+            studentItems.setModuleID(student.getModuleID());
+            studentItems.setLectureDate(student.getLectureDate());
+            studentItems.setAttended(student.getAttended());
 
             PutItemEnhancedRequest enhancedRequest = PutItemEnhancedRequest.builder(StudentItems.class)
                     .item(studentItems)
@@ -47,6 +59,78 @@ public class DynamoDBEnhanced extends ClientBuilder{
             table.putItem(enhancedRequest);
 
         }catch (DynamoDbException err){
+            System.out.println(err.getMessage());
+            System.exit(1);
+        }
+    }
+
+    // Queries the dynamoDB table to get student attendance records
+    public void queryDynamoTable(Query query) {
+        DynamoDbClient ddb = buildClient();
+
+        try {
+            // Builds the scan request, currently filtering out record values doesn't work
+            Map<String, AttributeValue> expressionAttributeValues =
+                    new HashMap<>();
+            AttributeValue attr = AttributeValue.builder().n("RECORD").build();
+            expressionAttributeValues.put(":val", attr);
+            ScanRequest scanRequest = ScanRequest
+                    .builder()
+                    .tableName("Student")
+                    // .filterExpression("lectureDate <> :val")
+                    .projectionExpression("moduleID, lectureDate, studentID, attended")
+                    // .expressionAttributeValues(expressionAttributeValues)
+                    .build();
+
+            // Receives the response from dynamoDB
+            ScanResponse response = ddb.scan(scanRequest);
+
+            int length = response.count();
+            // Stores the response in a usable array
+            Object[][] data = new Object[4][length];
+
+            int index = 0;
+
+            // Iterates over all the item responses from the dynamoDB table and sorts them into an array
+            for (Map<String, AttributeValue> item : response.items()) {
+                data[0][index] = item.get("moduleID");
+                data[1][index] = item.get("lectureDate");
+                data[2][index] = item.get("studentID");
+                data[3][index] = item.get("attended");
+                index++;
+            }
+
+            String[] columnNames = {"Module ID", "Lecture Date", "Student ID", "Present"};
+
+            String[][] format = new String[length + 1][4];
+
+            format[0][0] = columnNames[0];
+            format[0][1] = columnNames[1];
+            format[0][2] = columnNames[2];
+            format[0][3] = columnNames[3];
+
+            // Formats the table to be usable by the html page
+            for (int i = 0; i < length; i++) {
+                format[i + 1][0] = data[0][i].toString();
+                format[i + 1][1] = data[1][i].toString();
+                format[i + 1][2] = data[2][i].toString();
+                format[i + 1][3] = data[3][i].toString();
+            }
+
+            for (int i=0; i < format.length; i++) {
+                for (int j=0; j < format[0].length; j++) {
+                    if (!Arrays.asList(columnNames).contains(format[i][j]) && !Objects.equals(format[i][j], "RECORD")) {
+                        String[] s = format[i][j].split("=", 2);
+                        String s1 = s[1].substring(0, s[1].length() - 1);
+                        format[i][j] = s1;
+                    }
+                }
+            }
+
+            query.setData(format);
+            query.setColumnNames(columnNames);
+
+        } catch (DynamoDbException err) {
             System.out.println(err.getMessage());
             System.exit(1);
         }
