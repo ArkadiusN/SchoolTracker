@@ -1,6 +1,7 @@
 package com.example.handlingformsubmission;
 
 import org.springframework.stereotype.Component;
+import org.w3c.dom.Attr;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -11,7 +12,10 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 import software.amazon.awssdk.services.dynamodb.model.ScanResponse;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /*
   @Component is an annotation that allows Spring to automatically detect our custom beans.
@@ -78,11 +82,17 @@ public class DynamoDBEnhanced extends ClientBuilder<DynamoDbClient> {
         DynamoDbClient ddb = buildClient();
 
         try {
-            // Builds the scan request
+            // Builds the scan request, currently filtering out record values doesn't work
+            Map<String, AttributeValue> expressionAttributeValues =
+                    new HashMap<>();
+            AttributeValue attr = AttributeValue.builder().n("RECORD").build();
+            expressionAttributeValues.put(":val", attr);
             ScanRequest scanRequest = ScanRequest
                     .builder()
                     .tableName("Student")
+                    // .filterExpression("lectureDate <> :val")
                     .projectionExpression("moduleID, lectureDate, studentID, attended")
+                    // .expressionAttributeValues(expressionAttributeValues)
                     .build();
 
             // Receives the response from dynamoDB
@@ -105,7 +115,7 @@ public class DynamoDBEnhanced extends ClientBuilder<DynamoDbClient> {
 
             String[] columnNames = {"Module ID", "Lecture Date", "Student ID", "Present"};
 
-            Object[][] format = new Object[length + 1][4];
+            String[][] format = new String[length + 1][4];
 
             format[0][0] = columnNames[0];
             format[0][1] = columnNames[1];
@@ -114,35 +124,23 @@ public class DynamoDBEnhanced extends ClientBuilder<DynamoDbClient> {
 
             // Formats the table to be usable by the html page
             for (int i = 0; i < length; i++) {
-                format[i + 1][0] = data[0][i];
-                format[i + 1][1] = data[1][i];
-                format[i + 1][2] = data[2][i];
-                format[i + 1][3] = data[3][i];
+                format[i + 1][0] = data[0][i].toString();
+                format[i + 1][1] = data[1][i].toString();
+                format[i + 1][2] = data[2][i].toString();
+                format[i + 1][3] = data[3][i].toString();
             }
 
-            // Removes record rows from the table (they are used to hold additional student data
-            int rows_removed = 0;
-            for (int i = 0; i < length + 1; i++) {
-                if (format[i][1] == "RECORD") {
-                    rows_removed++;
+            for (int i=0; i < format.length; i++) {
+                for (int j=0; j < format[0].length; j++) {
+                    if (!Arrays.asList(columnNames).contains(format[i][j]) && !Objects.equals(format[i][j], "RECORD")) {
+                        String[] s = format[i][j].split("=", 2);
+                        String s1 = s[1].substring(0, s[1].length() - 1);
+                        format[i][j] = s1;
+                    }
                 }
             }
 
-            String[][] final_table = new String[length + 1 - rows_removed][4];
-
-            rows_removed = 0;
-            for (int i = 0; i < length + 1; i++) {
-                if (format[i][2] == "RECORD") {
-                    rows_removed += 1;
-                } else {
-                    final_table[i][0] = format[i + rows_removed][0].toString();
-                    final_table[i][1] = format[i + rows_removed][1].toString();
-                    final_table[i][2] = format[i + rows_removed][2].toString();
-                    final_table[i][3] = format[i + rows_removed][3].toString();
-                }
-            }
-
-            query.setData(final_table);
+            query.setData(format);
             query.setColumnNames(columnNames);
 
         } catch (DynamoDbException err) {

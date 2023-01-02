@@ -7,8 +7,7 @@ public class Query {
     private String[] columnNames;
 
     public Object[][] getData() {return data;}
-    public String[] getColumnNames() {return columnNames;
-    }
+    public String[] getColumnNames() {return columnNames;}
     public void setData(Object[][] data) {this.data = data;}
     public void setColumnNames(String[] columnNames) {this.columnNames = columnNames;}
 }
