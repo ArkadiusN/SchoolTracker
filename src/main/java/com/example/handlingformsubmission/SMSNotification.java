@@ -12,7 +12,7 @@ public class SMSNotification extends ClientBuilder{
         //Message to be sent to the person taking care of the
         //students register.
         String message = String
-                .format("Student: %s %s with the ID: %s \nfrom Year: %s \nwas added to register \nand the Status is:",
+                .format("Student: %s %s with the ID: %s \nfrom Year: %s \nwas added to register.",
                         studentName,
                         studentSurname,
                         studentID,

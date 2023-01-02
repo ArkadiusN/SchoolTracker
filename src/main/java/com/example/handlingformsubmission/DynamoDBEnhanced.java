@@ -28,10 +28,7 @@ public class DynamoDBEnhanced extends ClientBuilder{
             //Suggested way to forward the execution
             //of database operations on DynamoDB using
             //applications classes (from AWS SDK 2.0).
-            //DynamoDBEnhanced ddbObject = new DynamoDBEnhanced();
             DynamoDbEnhancedClient enhancedClient = super.buildEnhancedClientDynDB(ddb);
-
-
             DynamoDbTable<StudentItems> table = enhancedClient.table("Student", TableSchema.fromBean(StudentItems.class));
             StudentItems studentItems = new StudentItems();
 

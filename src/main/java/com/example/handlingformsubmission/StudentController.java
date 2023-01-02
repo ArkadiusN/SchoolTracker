@@ -1,6 +1,5 @@
 package com.example.handlingformsubmission;
 
-import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,12 +45,6 @@ public class StudentController {
     public String studentTrackForm(Model model) {
         model.addAttribute("student", new Student());
         return "student";
-    }
-
-    @GetMapping("/callback")
-    public String callback(Model model) {
-        model.addAttribute("callback");
-        return "callback";
     }
 
     /**
