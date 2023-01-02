@@ -1,7 +1,6 @@
 package com.example.handlingformsubmission;
 
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Attr;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -66,7 +65,7 @@ public class DynamoDBEnhanced extends ClientBuilder{
 
     // Queries the dynamoDB table to get student attendance records
     public void queryDynamoTable(Query query) {
-        DynamoDbClient ddb = buildClient();
+        DynamoDbClient ddb = super.buildClientDynDB();
 
         try {
             // Builds the scan request, currently filtering out record values doesn't work
