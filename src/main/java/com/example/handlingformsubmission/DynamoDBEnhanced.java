@@ -43,7 +43,6 @@ public class DynamoDBEnhanced extends ClientBuilder{
             PutItemEnhancedRequest enhancedRequest = PutItemEnhancedRequest.builder(StudentItems.class)
                     .item(studentItems)
                     .build();
-
             //Put the Student data into an Amazon DynamoDB table.
             table.putItem(enhancedRequest);
 
