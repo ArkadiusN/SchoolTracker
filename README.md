@@ -1,4 +1,4 @@
-# School Tracker <img src="SchoolTracker logo.png" width="180" align="left" style="margin-right:15px; margin-bottom:19px; border: 5px solid #e7790d" />
+# School Tracker <img src="SchoolTrackerLogo.PNG" width="180" align="left" style="margin-right:15px; margin-bottom:19px; border: 5px solid #e7790d" />
 
 **&raquo; AWS Student Tracker application** <br/><sub> _SaaS_ &middot; _AWS_ &middot; _AWS SDK_ &middot; _Java_ &middot; _Spring Boot_</sub>
 
