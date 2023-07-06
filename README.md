@@ -1,4 +1,4 @@
-# ToDo-App <img src="SchoolTracker logo.png" height="120" align="left" style="margin-right:15px; margin-bottom:19px; border: 5px solid #e7790d" />
+# ToDo-App <img src="SchoolTracker logo.png" width="140" align="left" style="margin-right:15px; margin-bottom:19px; border: 5px solid #e7790d" />
 
 **&raquo; AWS Student Record application** <br/><sub> _AWS_ &middot; _AWS SDK_ &middot; _Java_ &middot; _Spring Boot_</sub>
 
@@ -24,7 +24,7 @@ This application is aimed at lecturers/teachers who are interested in storing th
 The implementation of our application is built upon the robust foundation of Spring Boot in Java, leveraging the comprehensive software development kit offered by AWS. This positions our application as an exemplary Software as a Service (SaaS) solution. To ensure broad accessibility, our GUI utilizes the dynamic java templating engine, Thymeleaf, effortlessly rendering HTML content from the java backend to any web browser. Prior to accessing the application, users undergo a secure authentication process powered by Amazon Cognito. The Java application efficiently handles request handling and database queries, with records securely stored within an AWS DynamoDB database. Furthermore, AWS SNS integration enables users to receive real-time text message notifications on their mobile devices whenever a record is added or updated. Seamlessly deploying our application to the cloud is made possible through the efficient utilization of AWS Elastic Beanstalk.
 
 ### 1.3 Architecture
-<img src="SchoolTracker Architecture.PNG" height="580" style="border: 5px solid #181414"/>
+<img src="SchoolTracker Architecture.PNG" height="500" style="border: 5px solid #181414"/>
 
 
 
