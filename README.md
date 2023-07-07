@@ -52,9 +52,9 @@ Initially we have explored various technologies, including SQL databases. Howeve
 
 To obtain more detailed information about the project or its progress, please refer to the files listed below:
 
-[Download PDF 1 (Project Proposal that has changed based on the issues and findings)](https://github.com/ArkadiusN/ToDo-App/blob/master/Cloud_Computing_Proposal_changed.docx)
+[Download PDF 1 (Project Proposal that has changed based on the issues and findings)](https://github.com/ArkadiusN/SchoolTracker/blob/master/Cloud_Computing_Proposal_changed.docx)
 
-[Download PDF 2 (Presentation of the project at the middle stage)](https://github.com/ArkadiusN/ToDo-App/blob/master/PG12_Presentation_Student_Attendance_Application.pptx)
+[Download PDF 2 (Presentation of the project at the middle stage)](https://github.com/ArkadiusN/SchoolTracker/blob/master/PG12_Presentation_Student_Attendance_Application.pptx)
 
 <sub>[[Top 🢁](#contents)]</sub>
 
