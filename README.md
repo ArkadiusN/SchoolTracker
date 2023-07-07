@@ -9,8 +9,7 @@ The Student Tracker app is an engaging web-based application designed to store, 
 
 #### Contents
 - **[1 Getting Student Tracker](#1-getting-student-tracker)**
-  - [1.1 Check if Student Tracker can be executed](#11-check-if-student-tracker-can-be-executed)
-  - [1.2 Execute code in Elastic Beanstalk](#12-execute-code-in-elastic-beanstalk)
+  - [1.1 Execute code in Elastic Beanstalk](#11-execute-code-in-elastic-beanstalk)
 - **[2 About the program](#2-about-the-program)**
   - [2.1 Target group](#21-target-group)
   - [2.2 Implementation](#22-implementation)
@@ -18,9 +17,21 @@ The Student Tracker app is an engaging web-based application designed to store, 
 
 ## 1 Getting Student Tracker
 
-### 1.1 Check if Student Tracker can be executed
+### 1.1 Execute code in Elastic Beanstalk
+The reality of Elastic Beanstalk simplifies the overall project significantly, thanks to its automatic configuration of the application environment. The initial step involves providing a phone number for $\color{white}{SMSNotification.java}$ in the `phoneNumber` variable. After completing this task, we proceed to package the project into a JAR file and deploy it to Elastic Beanstalk using the command provided below:
+```bash
+mvn package
+```
+The .jar file should appear in the target folder that we can use with the AWS Elastic Beanstalk. [This link](https://medium.com/javarevisited/deploy-spring-boot-app-to-aws-elastic-beanstalk-fa42b8b4bfa0) will help to configure the app wizard accordingly to the project. To make sure that the right configuration also exists for our DynamoDB table please have a look at the constantly changing [documentation](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html) to make sure it matches the up-to-date criteria. 
 
-### 1.2 Execute code in Elastic Beanstalk
+On successful completion of going through these steps, you should be able to view the result below from the link provided by the Elastic Beanstalk:
+
+<img src="SchoolTracker deployed.PNG" height="320" style="border: 5px solid #181414"/>
+
+On the other hand, the database should autonomously update itself with minimal latency, which can be observed in the following:
+
+<img src="SchoolTracker database.PNG" height="380" style="border: 5px solid #181414"/>
+
 
 <sub>[[Top 🢁](#contents)]</sub>
 
@@ -38,6 +49,12 @@ The implementation of our application is built upon the robust foundation of Spr
 Initially we have explored various technologies, including SQL databases. However, as the project progressed, we made the decision to utilize DynamoDB, a NoSQL database, but also tried to maintain the similarity of what the below architecture conveys. The database schema for the attendance record:
 
 <img src="Database Schema.PNG" height="450" style="border: 5px solid #181414"/>
+
+To obtain more detailed information about the project or its progress, please refer to the files listed below:
+
+[Download PDF 1 (Project Proposal that has changed based on the issues and findings)](https://github.com/ArkadiusN/ToDo-App/blob/master/Cloud_Computing_Proposal_changed.docx)
+
+[Download PDF 2 (Presentation of the project at the middle stage)](https://github.com/ArkadiusN/ToDo-App/blob/master/PG12_Presentation_Student_Attendance_Application.pptx)
 
 <sub>[[Top 🢁](#contents)]</sub>
 
